@@ -1,4 +1,4 @@
-package com.example.api.medicos.infra;
+package com.example.api.medicos.infra.exceptions;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
