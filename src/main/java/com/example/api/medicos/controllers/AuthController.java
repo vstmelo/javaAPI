@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/login")
 public class AuthController {
+
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager ;
     
     @PostMapping
-    @Transactional
     public ResponseEntity AuthLogin(@RequestBody @Valid DadosAuthParams data){
-        var token = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+        var token = new UsernamePasswordAuthenticationToken(data.username(), data.password());
         var authentication = authenticationManager.authenticate(token);
         return ResponseEntity.ok().build();
 
