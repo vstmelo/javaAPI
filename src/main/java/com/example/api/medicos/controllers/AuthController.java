@@ -1,6 +1,9 @@
 package com.example.api.medicos.controllers;
 
 import com.example.api.medicos.domain.usuarios.DadosAuthParams;
+import com.example.api.medicos.domain.usuarios.Usuarios;
+import com.example.api.medicos.infra.security.DadosTokenJWT;
+import com.example.api.medicos.infra.security.TokenService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +21,15 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager ;
-    
+
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity AuthLogin(@RequestBody @Valid DadosAuthParams data){
         var token = new UsernamePasswordAuthenticationToken(data.username(), data.password());
         var authentication = authenticationManager.authenticate(token);
-        return ResponseEntity.ok().build();
-
+        var tokenJWT = tokenService.gerarToken(((Usuarios) authentication.getPrincipal()));
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 }
