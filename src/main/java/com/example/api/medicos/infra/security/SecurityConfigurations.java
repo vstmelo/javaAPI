@@ -29,7 +29,7 @@ public class SecurityConfigurations {
         return http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req ->{
-                    req.antMatchers( "/login").permitAll();
+                    req.antMatchers("/login").permitAll();
                     req.anyRequest().authenticated();
                     req.and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
                 })
