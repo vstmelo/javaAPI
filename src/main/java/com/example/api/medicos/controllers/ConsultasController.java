@@ -1,5 +1,6 @@
 package com.example.api.medicos.controllers;
 
+import com.example.api.medicos.domain.consultas.AgendaDeConsultas;
 import com.example.api.medicos.domain.consultas.ConsultasRepository;
 import com.example.api.medicos.domain.consultas.DadosAgendamentoConsulta;
 import com.example.api.medicos.domain.consultas.DadosDetalhamentoConsulta;
@@ -16,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("consultas")
 public class ConsultasController {
     @Autowired
+    private AgendaDeConsultas agenda;
+    @Autowired
     ConsultasRepository consultasRepository;
     @PostMapping
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsulta dados) {
+        agenda.agendar(dados);
         return ResponseEntity.ok(new DadosDetalhamentoConsulta(null, null, null, null));
     }
 
