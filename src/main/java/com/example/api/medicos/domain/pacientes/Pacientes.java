@@ -22,8 +22,10 @@ public class Pacientes {
     private String telefone;
     @Embedded
     private Endereco endereco;
+    private Boolean ativo;
 
     public Pacientes(DataCreatePacientes paciente) {
+        this.ativo=true;
         this.nome=paciente.nome();
         this.email=paciente.email();
         this.telefone=paciente.telefone();
@@ -43,5 +45,8 @@ public class Pacientes {
 
             this.endereco.attDadosEndereco(dados.endereco());
         }
+    }
+    public void excluir() {
+        this.ativo = false;
     }
 }
