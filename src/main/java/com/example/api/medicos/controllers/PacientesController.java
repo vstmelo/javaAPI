@@ -41,7 +41,8 @@ public class PacientesController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluirPaciente(@PathVariable Long id){
-       repository.deleteById(id);
+       var paciente = repository.getReferenceById(id);
+       paciente.excluir();
        return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
