@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDateTime;
 
 public interface ConsultasRepository extends JpaRepository<Consultas, Long> {
-    Boolean existsByMedicoAndData(Long idMedico, LocalDateTime data);
+    Boolean existsByMedicoIdAndData(Long idMedico, LocalDateTime data);
 
-    Boolean existsByPacienteAndDataBetween(Long idPaciente, LocalDateTime primeiroHorario, LocalDateTime ultimoHorario);
+    Boolean existsByPacienteIdAndDataBetween(Long idPaciente, LocalDateTime primeiroHorario, LocalDateTime ultimoHorario);
 }

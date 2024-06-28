@@ -14,7 +14,7 @@ public class ValidarPacienteSemOutraConsultaNoDia implements ValidadorAgendament
     public void validar(DadosAgendamentoConsulta dados) {
         var primeiroHorario = dados.data().withHour(6);
         var ultimoHorario = dados.data().withHour(18);
-        var pacienteComConsultaNoMesmoHorario= consultasRepository.existsByPacienteAndDataBetween(dados.idPaciente(), primeiroHorario, ultimoHorario);
+        var pacienteComConsultaNoMesmoHorario= consultasRepository.existsByPacienteIdAndDataBetween(dados.idPaciente(), primeiroHorario, ultimoHorario);
 
         if(pacienteComConsultaNoMesmoHorario){
             throw new ValidacaoException("Paciente já possui consulta agendada nesse dia");
