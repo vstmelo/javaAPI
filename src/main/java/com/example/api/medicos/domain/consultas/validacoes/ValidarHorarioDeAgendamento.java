@@ -8,8 +8,9 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class ValidarHorarioDeAgendamento {
-    public void agendar(DadosAgendamentoConsulta dados) {
+@Component
+public class ValidarHorarioDeAgendamento implements ValidadorAgendamentoDeConsulta{
+    public void validar(DadosAgendamentoConsulta dados) {
         var dataConsulta = dados.data();
         var antesDaAberturaDaClinica = dataConsulta.getHour() < 7;
         var domingo = dataConsulta.getDayOfWeek().equals(DayOfWeek.SUNDAY);
@@ -17,22 +18,6 @@ public class ValidarHorarioDeAgendamento {
 
         if (domingo || antesDaAberturaDaClinica || depoisDoEncerramentoDaClinica) {
             throw new ValidacaoException("Consulta fora do horário de funcionamento da clínica");
-        }
-
-    }
-
-    @Component
-    public class ValidadorHorarioAntecedencia implements ValidadorAgendamentoDeConsulta{
-
-        public void validar(DadosAgendamentoConsulta dados) {
-
-            var dataConsulta = dados.data();
-            var agora = LocalDateTime.now();
-            var diferencaEmMinutos = Duration.between(agora, dataConsulta).toMinutes();
-
-            if (diferencaEmMinutos < 30) {
-                throw new ValidacaoException("Consulta deve ser agendada com antecedência mínima de 30 minutos");
-            }
         }
 
     }
